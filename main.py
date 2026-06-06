@@ -1199,10 +1199,10 @@ def menu():
     global clima
     global tipo_avenida
 
-    boton_seco = pygame.Rect(ANCHO//2 - 200, 320, 400, 70)
-    boton_lluvia = pygame.Rect(ANCHO//2 - 200, 420, 400, 70)
-    boton_estrecha = pygame.Rect(ANCHO//2 - 200, 520, 190, 60)
-    boton_ancha = pygame.Rect(ANCHO//2 + 10, 520, 190, 60)
+    boton_seco = pygame.Rect(ANCHO//2 - 200, 280, 400, 70)
+    boton_lluvia = pygame.Rect(ANCHO//2 - 200, 380, 400, 70)
+    boton_estrecha = pygame.Rect(ANCHO//2 - 200, 480, 190, 60)
+    boton_ancha = pygame.Rect(ANCHO//2 + 10, 480, 190, 60)
 
     boton_iniciar = pygame.Rect(ANCHO//2 - 200, 560, 400, 70)
 
@@ -1234,7 +1234,7 @@ def menu():
         pygame.draw.rect(pantalla, color_estrecha, boton_estrecha, border_radius=12)
 
         txt = font.render("Av. Estrecha", True, BLANCO)
-        pantalla.blit(txt, (boton_estrecha.x + 25, boton_estrecha.y + 18))
+        pantalla.blit(txt, (boton_estrecha.x + 25, boton_estrecha.y+18))
 
 
         # BOTÓN ANCHA
@@ -1262,13 +1262,13 @@ def menu():
                             (int(c["x"]), c["y"], c["w"], c["h"]), border_radius=5)
 
         # Título principal con sombra
-        title_shadow = font_large.render("SIMULADOR DE TRÁFICO", True, (10, 15, 20))
+        title_shadow = font_large.render("SIMULADOR DE TRÁFICO", True, (30, 15, 20))
         title_text = font_large.render("SIMULADOR DE TRÁFICO", True, BLANCO)
-        pantalla.blit(title_shadow, (ANCHO//2 - 228, 142))
-        pantalla.blit(title_text, (ANCHO//2 - 230, 140))
+        pantalla.blit(title_shadow, (ANCHO//2 - 222, 142))
+        pantalla.blit(title_text, (ANCHO//2 - 222, 140))
         
         subtitle_text = font_small.render("Mejoras de Superficie, Clima y Físicas de Tránsito Inteligente", True, (150, 170, 190))
-        pantalla.blit(subtitle_text, (ANCHO//2 - 225, 190))
+        pantalla.blit(subtitle_text, (ANCHO//2 - 235, 190))
 
         # BOTÓN SECO
         color_seco = (60, 68, 80)
@@ -1283,8 +1283,9 @@ def menu():
         if border_seco > 1 or boton_seco.collidepoint(mouse):
             pygame.draw.rect(pantalla, BLANCO, boton_seco, width=2, border_radius=12)
         
+        btn_y=300
         texto_seco = font.render("Clima Seco", True, BLANCO)
-        pantalla.blit(texto_seco, (ANCHO//2 - 50, 340))
+        pantalla.blit(texto_seco, (ANCHO//2 - 50, btn_y))
 
         # BOTÓN LLUVIA
         color_lluvia = (60, 68, 80)
@@ -1300,7 +1301,7 @@ def menu():
             pygame.draw.rect(pantalla, BLANCO, boton_lluvia, width=2, border_radius=12)
             
         texto_lluvia = font.render("Clima Lluvioso", True, BLANCO)
-        pantalla.blit(texto_lluvia, (ANCHO//2 - 68, 440))
+        pantalla.blit(texto_lluvia, (ANCHO//2 - 68, btn_y + 100))
 
         # BOTÓN INICIAR
         color_inicio = (38, 143, 65)
@@ -1380,24 +1381,30 @@ def intentar_spawnear_vehiculo():
         vehiculos.append(Vehiculo(x, y, dir_random, carril_random))
 
 # Inicialización de botones del panel lateral interactivo (HUD integrado)
-btn_pausa = BotonUI(30, 55, 140, 30, "PAUSAR", (150, 40, 40), (190, 60, 60))
-btn_clima_seco = BotonUI(190, 55, 75, 30, "SECO", (60, 68, 80), (80, 90, 110))
-btn_clima_lluvia = BotonUI(275, 55, 75, 30, "LLUVIA", (60, 68, 80), (80, 90, 110))
+panel_y = 550
+panel_x=75
+btn_ancha = BotonUI(panel_x+ 2, panel_y +100, 140, 30, "AV. Ancha", (150, 40, 40), (190, 60, 60))
+btn_estrecha = BotonUI(panel_x+ 162, panel_y +100, 140, 30, "Av. Estrecha", (150, 40, 40), (190, 60, 60))
+btn_pausa = BotonUI(panel_x, panel_y, 140, 30, "PAUSAR", (150, 40, 40), (190, 60, 60))
+btn_clima_seco = BotonUI(panel_x + 160, panel_y, 75, 30, "SECO", (60, 68, 80), (80, 90, 110))
+btn_clima_lluvia = BotonUI(panel_x + 245, panel_y, 75, 30, "LLUVIA", (60, 68, 80), (80, 90, 110))
 
-btn_force_change = BotonUI(30, 105, 140, 30, "FORZAR CAMBIO", (40, 110, 200), (50, 130, 230))
-btn_reiniciar = BotonUI(190, 105, 160, 30, "REINICIAR SIM.", (38, 143, 65), (46, 179, 81))
+btn_force_change = BotonUI(panel_x, panel_y+50, 140, 30, "FORZAR CAMBIO", (40, 110, 200), (50, 130, 230))
+btn_reiniciar = BotonUI(panel_x + 160, panel_y+50, 160, 30, "REINICIAR SIM.", (38, 143, 65), (46, 179, 81))
 
-btn_menu = BotonUI(30, 155, 320, 30, "VOLVER AL MENÚ PRINCIPAL", (60, 68, 80), (80, 90, 110))
+btn_menu = BotonUI(ANCHO - 400, panel_y+100, 320, 30, "VOLVER AL MENÚ PRINCIPAL", (60, 68, 80), (80, 90, 110))
 
 # Ajustables
-btn_caudal_dec = BotonUI(130, 200, 25, 25, "-", (40, 45, 55), (60, 68, 80))
-btn_caudal_inc = BotonUI(160, 200, 25, 25, "+", (40, 45, 55), (60, 68, 80))
 
-btn_vel_dec = BotonUI(295, 200, 25, 25, "-", (40, 45, 55), (60, 68, 80))
-btn_vel_inc = BotonUI(325, 200, 25, 25, "+", (40, 45, 55), (60, 68, 80))
 
-btn_dur_dec = BotonUI(460, 200, 25, 25, "-", (40, 45, 55), (60, 68, 80))
-btn_dur_inc = BotonUI(490, 200, 25, 25, "+", (40, 45, 55), (60, 68, 80))
+btn_caudal_dec = BotonUI(105, panel_y + 150, 25, 25, "-", (40, 45, 55), (60, 68, 80))
+btn_caudal_inc = BotonUI(135, panel_y + 150, 25, 25, "+", (40, 45, 55), (60, 68, 80))
+
+btn_vel_dec = BotonUI(215, panel_y + 150, 25, 25, "-", (40, 45, 55), (60, 68, 80))
+btn_vel_inc = BotonUI(245, panel_y + 150, 25, 25, "+", (40, 45, 55), (60, 68, 80))
+
+btn_dur_dec = BotonUI(315, panel_y + 150, 25, 25, "-", (40, 45, 55), (60, 68, 80))
+btn_dur_inc = BotonUI(345, panel_y + 150, 25, 25, "+", (40, 45, 55), (60, 68, 80))
 
 # Iniciar simulación
 menu()
@@ -1626,6 +1633,33 @@ while True:
     
     pantalla.blit(font_small.render("Congestión:", True, BLANCO), (22, 84))
     pantalla.blit(font_small.render(c_level, True, c_color), (115, 84))
+
+    # Panel inferior translúcido para agrupar los botones interactivos
+    draw_rect_alpha(pantalla, (20, 25, 35, 200), (65, 540, 340, 185), border_radius=8)
+    pygame.draw.rect(pantalla, (80, 90, 110), (65, 540, 340, 185), width=1, border_radius=8)
+
+    # Dibujar botones del panel
+    btn_ancha.dibujar(pantalla, mouse_pos)
+    btn_estrecha.dibujar(pantalla, mouse_pos)
+    btn_pausa.dibujar(pantalla, mouse_pos)
+    btn_clima_seco.dibujar(pantalla, mouse_pos)
+    btn_clima_lluvia.dibujar(pantalla, mouse_pos)
+    btn_force_change.dibujar(pantalla, mouse_pos)
+    btn_reiniciar.dibujar(pantalla, mouse_pos)
+    btn_menu.dibujar(pantalla, mouse_pos)
+    
+    btn_caudal_dec.dibujar(pantalla, mouse_pos)
+    btn_caudal_inc.dibujar(pantalla, mouse_pos)
+    btn_vel_dec.dibujar(pantalla, mouse_pos)
+    btn_vel_inc.dibujar(pantalla, mouse_pos)
+    btn_dur_dec.dibujar(pantalla, mouse_pos)
+    btn_dur_inc.dibujar(pantalla, mouse_pos)
+
+    # Etiquetas de texto para los botones +/-
+    pantalla.blit(font_small.render(f"Autos: {target_vehiculos}", True, BLANCO), (90, 688))
+    pantalla.blit(font_small.render(f"Vel: {velocidad_multiplicador:.1f}x", True, BLANCO), (210, 688))
+    pantalla.blit(font_small.render(f"Sem: {duracion_semaforo_segundos:.0f}s", True, BLANCO), (310, 688))
+
 
     # Control de Semáforo en HUD
     # Estado H y V
